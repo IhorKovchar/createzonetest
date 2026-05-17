@@ -1,0 +1,16 @@
+@use "./variables" as *; 
+
+
+@mixin theme-generate {
+    @each $theme-name, $theme-colors in $themes {
+        [data-theme="#{$theme-name}"] {
+            @each $var-name, $var-color in $theme-colors {
+                --#{$var-name}: #{$var-color};
+            }
+        }
+    }
+}
+
+@function theme($var) {
+    @return var(--#{$var});
+}

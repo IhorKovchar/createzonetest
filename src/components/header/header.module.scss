@@ -1,0 +1,76 @@
+@use "../../styles/variables" as v;
+@use "../../styles/breakpoints" as *;
+
+.header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:  v.$header-bg;
+    position: relative;
+    z-index: 100;
+    &__title {
+        color: v.$logo-color;
+        font-size: 26px;
+        text-decoration: none;
+        @include respond-below('sm') {
+            font-size: 16px ;
+        }
+    }
+    &__nav {
+        width: 65%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        @include respond-below('2xl') {
+            width: 80%;
+        }
+    }
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+    &__item{
+        color: v.$header-text-color;
+    }
+    &__userBox{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+    &__desktop{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        @include respond-below('xl'){
+            display: none;
+        }
+    }
+    &__leftSide{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+        min-width: fit-content;
+        position: relative;
+        z-index: 10;
+    }
+    &__burger{
+        display: none;
+        @include respond-below('xl'){
+            display: flex;
+            align-items: center;
+        }
+    }
+    &__mobileUser{
+        display: none;
+        @include respond-below('xl') {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+@use "./variables" as v;
+@use "./themes/mixins" as *;
+@use "./themes/variables" as *;
+
+@include theme-generate;
+
+body{
+    margin: 0;
+    background-color: theme("bg-primary");
+    color: theme("text-primary");
+}
+
+.layout {
+    display: flex;
+    // background: v.$main-background-color;
+    // color: v.$main-text-color;
+    min-height: 100vh;
+    font-family: var(--font-inter);
+    font-size: smaller ;
+    flex-direction: column;
+}
+
+.main {
+    margin: 0;
+    padding: 50px 0 10px 0;
+    flex: 1;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+button {
+    background: v.$buttons-color;
+    &:hover {
+        background: v.$hover-buttons;
+        cursor: pointer;
+    }
+    width: 100px;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
+    color: v.$second-text-color-1;
+}

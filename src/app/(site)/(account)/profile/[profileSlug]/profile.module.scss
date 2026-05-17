@@ -1,0 +1,79 @@
+@use "../../../../../styles/variables" as v;
+@use "../../../../../styles/breakpoints" as *;
+
+.profile{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    &__container{
+        width: 65%;
+        display: flex;
+        flex-direction: row;
+        text-decoration: none;
+        justify-content: space-between;
+        @include respond-below('xl') {
+            width: 90%;
+        }
+        @include respond-below('md'){
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        } 
+    }
+    &__box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    &__postLink{
+        text-decoration: none;
+    }
+    &__postsGrid{
+        display: grid;
+        grid-template-columns: repeat(3, 200px);
+        gap: 30px;
+        @include respond-below('2xl') {
+            display: grid;
+            grid-template-columns: repeat(2, 200px);
+        }
+    }
+    &__post{
+        width: 200px;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    &__postImage{
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        @include respond-below('md'){
+            width: 150px;
+            height: 150px;
+        } 
+    }
+    &__postTitle{
+        color: v.$second-text-color-1;
+    }
+    &__user{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-around;
+        border: 2 solid grey;
+        border-radius: 20px;
+        width: 200px;
+        height: 100px;
+        padding: 10px;
+    }
+    &__avatar{
+        width: 200px;
+        height: 200xp;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}
+

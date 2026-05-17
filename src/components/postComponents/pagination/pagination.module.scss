@@ -1,0 +1,42 @@
+@use "../../../styles/variables" as v;
+
+.pagination{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid 1px v.$border-color;
+    background: v.$pagination-bg;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 90%;
+    &__button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: v.$pagination-bg;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        min-width: 35px;
+        transition: all 0.2s ease;
+        &:hover:not(:disabled) {
+            background: v.$pagination-button-bg;
+        }
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        &__active{
+            border: 2px solid black;
+            font-weight: bold;
+            background: v.$pagination-button-bg;
+        }
+    }
+    &_dots{
+        padding: 0 6px;
+        font-size: 14px;
+        color: grey;
+    }
+}

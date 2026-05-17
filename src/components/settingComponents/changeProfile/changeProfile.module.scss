@@ -1,0 +1,41 @@
+@use "../../../styles/variables" as v;
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.changeProfile{
+    &__button{
+        width: 100px;
+        height: 25px;
+    }
+    &__error {
+        width: 300px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: v.$error-bg;
+        border: 1px solid v.$border-error;
+        color: v.$text-color-error;
+        font-size: 14px;
+        font-weight: 500;
+        animation: fadeIn 0.2s ease;
+    }
+    &__success {
+        width: 300px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: v.$succes-bg;
+        border: 1px solid v.$border-succes;
+        color: v.$text-color-succes;
+        font-size: 14px;
+        font-weight: 500;
+        animation: fadeIn 0.2s ease;
+    }
+}
