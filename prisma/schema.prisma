@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+  url      = env("DATABASE_URL")
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum Theme {
+  LIGHT
+  DARK
+}
+
+model User {
+	id                Int            @id @default(autoincrement())
+	name              String?
+	email             String?        @unique
+	emailVerified     DateTime?
+	image             String?        @default("/api/avatar/avatar-default.svg")
+	accounts          Account[]
+	password          String?
+	createdAt         DateTime       @default(now())
+	updatedAt         DateTime       @updatedAt
+	sentMessage       Message[]      @relation("Sent")
+	getMessage        Message[]      @relation("Get")
+	posts             Post[]
+	sentRequests      Friendship[]   @relation("SendFriendship")
+	receivedRequests  Friendship[]   @relation("GetFriendship")
+	slug              String         @unique
+	theme             Theme          @default(DARK)
+	sessions          Session[]
+	notifications     Notification[] @relation("FriendNotification")
+	sentNotifications Notification[] @relation("SenderNotification")
+}
+
+model Account {
+	id                       String  @id @default(cuid())
+	userId                   Int     @unique
+	type                     String
+	provider                 String
+	providerAccountId        String
+	refresh_token            String? @db.Text
+	access_token             String? @db.Text
+	expires_at               Int?
+	token_type               String?
+	scope                    String?
+	id_token                 String? @db.Text
+	session_state            String?
+	refresh_token_expires_in Int?
+	user                     User?   @relation(fields: [userId], references: [id])
+
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+
+	@@unique([provider, providerAccountId])
+	@@index([userId])
+}
+
+model Message {
+	id        Int      @id @default(autoincrement())
+	text      String
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	fromId    Int
+	from      User     @relation("Sent", fields: [fromId], references: [id], onDelete: Cascade)
+	toId      Int
+	to        User     @relation("Get", fields: [toId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+	id          Int      @id @default(autoincrement())
+	title       String
+	description String
+	imageUrl    String
+	videoUrl    String
+	createdAt   DateTime @default(now())
+	updatedAt   DateTime @updatedAt
+	authorId    Int
+	author      User     @relation(fields: [authorId], references: [id])
+	slug        String
+}
+
+model Friendship {
+	id         Int              @id @default(autoincrement())
+	senderId   Int
+	receiverId Int
+	WhoSender  User             @relation("SendFriendship", fields: [senderId], references: [id], onDelete: Cascade)
+	WhoGetter  User             @relation("GetFriendship", fields: [receiverId], references: [id], onDelete: Cascade)
+	status     FriendshipStatus
+	createdAt  DateTime         @default(now())
+	updatedAt  DateTime         @default(now()) @updatedAt
+}
+
+model Session {
+	id           String   @id @default(cuid())
+	sessionToken String   @unique
+	userId       Int
+	expires      DateTime
+	user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+	createdAt   DateTime @default(now())
+	updatedAt   DateTime @updatedAt
+}
+
+model Notification {
+	id       Int    @id @default(autoincrement())
+	friendId Int
+	senderId Int
+	message  String
+	friend   User   @relation("FriendNotification", fields: [friendId], references: [id])
+	sender   User   @relation("SenderNotification", fields: [senderId], references: [id])
+}
